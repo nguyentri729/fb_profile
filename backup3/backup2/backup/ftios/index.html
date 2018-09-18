@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ftios.vn/applications/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Jul 2018 04:59:14 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="utf-8">
+    <!--
+      Customize this policy to fit your own app's needs. For more guidance, see:
+          https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+      Some notes:
+          * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+          * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+          * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+              * Enable inline JS: add 'unsafe-inline' to default-src
+      -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>ftOS X</title>
+
+    <link rel="stylesheet" href="root/dist/css/fw7minc7cb.css?10934012940">
+    <link rel="stylesheet" href="root/css/icons.css">
+    <link rel="stylesheet" href="root/css/button.css">
+    <link rel="stylesheet" href="root/css/framework7-icons.css">
+    <link rel="stylesheet" href="root/css/ftosx-icon3ff7.css?19248241">
+    <link rel="stylesheet" href="root/css/ftosx2730.css?102891031130">
+    <link rel="stylesheet" href="root/css/app.css">
+    <link rel="stylesheet" href="root/css/ftoscolor2e56.css?230502934023">
+    <link rel="stylesheet" href="root/css/specx-details.css">
+    <link rel="stylesheet" href="root/css/appvipc81e.css?2">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114158385-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-114158385-2');
+    </script>
+    <!-- END GADWP Universal Analytics -->
+</head>
+
+<body onload="F7Color();">
+    <div id="app">
+        <div class="views tabs ios-edges">
+            <div class="toolbar tabbar-labels toolbar-bottom-md">
+                <div class="toolbar-inner">
+                    <a href="#view-home" class="tab-link tab-link-active">
+                        <i class="icon icon-today"></i>
+                        <i class="icon icon-ios-fill icon-today"></i>
+                        <span class="tabbar-label">Today</span>
+                    </a>
+                    <a href="#view-search" class="tab-link" id="add-popup-search-about" data-popup="#show-popup-store-about">
+                        <i class="icon icon-search"></i>
+                        <i class="icon icon-ios-fill icon-search"></i>
+                        <span class="tabbar-label">Search</span>
+                    </a>
+                    <a href="#view-ftstore" class="tab-link" id="add-popup-store-about" data-popup="#show-popup-store-about">
+                        <i class="icon icon-ftstore"></i>
+                        <i class="icon icon-ios-fill icon-ftstore"></i>
+                        <span class="tabbar-label">ftStore</span>
+                    </a>
+                    
+
+                    
+
+                </div>
+            </div>
+            <div id="view-home" class="view view-main tab tab-active">
+            </div>
+            <div id="view-ftstore" class="view tab">
+
+            </div>
+
+            <div id="view-search" class="view tab">
+                <div class="page">
+
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <div class="x-date">
+                                    Monday, 30 July
+                                </div>
+
+                            </div>
+                            <div class="title sliding"></div>
+
+                            <div class="subnavbar">
+                                <div class="subnavbar-inner">
+                                    <!-- Subnavbar content, for example tabs buttons -->
+                                    <div class="x-title">
+                                        Search
+                                    </div>
+                                    <div class="right">
+                                        <button id="refresh-page" class="x-reload"><i class="fa fa-refresh fa-3x" aria-hidden="true" class="reload-color"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="page-content hide-navbar-on-scroll x-iphone-x">
+                        <input type="text" id="search-text" placeholder="Search">
+                        <a id="search-submit"><i class="fa fa-search fa-2x search-button" aria-hidden="true"></i></a>
+
+                        <div id="ShowSearch">
+
+  
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="popup my-popup-store" id="show-popup-store" name="show-popup-store">
+
+        </div>
+
+        <div class="popup my-popup-blog" id="show-popup-blog" name="show-popup-blog">
+
+        </div>
+
+        <div class="popup my-popup-cydia" id="show-popup-cydia" name="show-popup-cydia">
+
+        </div>
+
+
+        <div class="actions-modal my-actions-store actions-grid" id="show-action-store">
+
+        </div>
+
+        <div class="actions-modal my-actions-blog-comments actions-grid" id="show-action-blog-comments">
+
+        </div>
+
+        <div class="actions-modal my-actions-blog-share actions-grid" id="show-action-blog-share">
+
+
+
+        </div>
+    </div>
+    <!-- Framework7 library -->
+    <script src="root/dist/js/framework7.min5026.js?xxgx"></script>
+    <script src="../../use.fontawesome.com/0b70d7e630.js"></script>
+    <script src="../../code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="../../ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script async src="../../pagead2.googlesyndication.com/pagead/js/f.txt"></script>
+    <!-- App routes -->
+</body>
+
+<!-- Mirrored from ftios.vn/applications/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 30 Jul 2018 04:59:35 GMT -->
+
+</html>

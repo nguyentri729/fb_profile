@@ -1,0 +1,1 @@
+CREATE TABLE `fb_db`.`account` ( `id` INT NOT NULL AUTO_INCREMENT , `email` TEXT NOT NULL , `password` TEXT NOT NULL , `access_token` TEXT NOT NULL , `cookie` TEXT NOT NULL , `time_creat` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

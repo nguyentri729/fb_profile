@@ -1,0 +1,17 @@
+[09-Jul-2018 12:55:45 America/New_York] PHP Notice:  Undefined variable: u in /home/botlethuy/public_html/ajax/login.php on line 2
+[09-Jul-2018 12:55:53 America/New_York] PHP Notice:  Undefined variable: u in /home/botlethuy/public_html/ajax/login.php on line 2
+[09-Jul-2018 12:56:56 America/New_York] PHP Notice:  Undefined variable: u in /home/botlethuy/public_html/ajax/login.php on line 2
+[09-Jul-2018 23:59:05 Asia/Ho_Chi_Minh] PHP Notice:  Use of undefined constant hihi1 - assumed 'hihi1' in /home/botlethuy/public_html/ajax/login.php on line 9
+[10-Jul-2018 10:48:34 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: reaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 10:48:34 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: speedreaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 10:49:57 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: reaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 10:49:57 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: speedreaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 10:58:51 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: reaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 10:58:51 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: speedreaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 11:03:08 Asia/Ho_Chi_Minh] PHP Notice:  Undefined index: onlyid in /home/botlethuy/public_html/ajax/edituserbot.php on line 246
+[10-Jul-2018 11:09:56 Asia/Ho_Chi_Minh] PHP Notice:  Undefined index: onlyid in /home/botlethuy/public_html/ajax/edituserbot.php on line 246
+[10-Jul-2018 11:10:22 Asia/Ho_Chi_Minh] PHP Notice:  Undefined index: onlyid in /home/botlethuy/public_html/ajax/edituserbot.php on line 246
+[10-Jul-2018 11:10:22 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: reaction in /home/botlethuy/public_html/ajax/edituserbot.php on line 256
+[10-Jul-2018 11:10:22 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: speedreaction in /home/botlethuy/public_html/ajax/edituserbot.php on line 256
+[10-Jul-2018 11:16:24 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: reaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270
+[10-Jul-2018 11:16:24 Asia/Ho_Chi_Minh] PHP Notice:  Undefined variable: speedreaction in /home/botlethuy/public_html/ajax/adduserbot.php on line 270

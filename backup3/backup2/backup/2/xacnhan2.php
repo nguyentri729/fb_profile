@@ -1,0 +1,10 @@
+<?php $DBHOST = "localhost";
+$DBUSER = "root";
+$DBNAME = "bot_fb";
+$DBPW =  "";
+$BASEU = 'http://localhost/2';
+$botid = "x";
+$blockid = "x";
+$TOKENCHATFUEL = "x";
+$PartnerId = "x";
+$SecretKey = "x"; ?>

@@ -1,0 +1,14 @@
+CREATE TABLE `account` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(100) NOT NULL , `email` VARCHAR(100) NOT NULL , `username` VARCHAR(100) NOT NULL , `password` VARCHAR(100) NOT NULL , `access_token` TEXT NOT NULL , `cookie` TEXT NOT NULL , `time_use` INT NOT NULL , `time_creat` INT NOT NULL , `active` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `account` ADD `id_fb` VARCHAR(50) NOT NULL AFTER `id`;
+
+id
+id_fb
+name
+email
+username
+password
+access_token
+cookie
+time_use
+time_creat
+active
