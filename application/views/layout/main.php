@@ -199,16 +199,10 @@
 <script src="<?=base_url()?>assets/vendors/jquery.validate.min.js"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
 <script src="<?=base_url()?>assets/vendors/moment.min.js"></script>
-<!--  Charts Plugin -->
-<script src="<?=base_url()?>assets/vendors/chartist.min.js"></script>
-<!--  Plugin for the Wizard -->
-<script src="<?=base_url()?>assets/vendors/jquery.bootstrap-wizard.js"></script>
-<!--  Notifications Plugin    -->
-<script src="<?=base_url()?>assets/vendors/bootstrap-notify.js"></script>
+
 <!-- DateTimePicker Plugin -->
 <script src="<?=base_url()?>assets/vendors/bootstrap-datetimepicker.js"></script>
-<!-- Vector Map plugin -->
-<script src="<?=base_url()?>assets/vendors/jquery-jvectormap.js"></script>
+
 <!-- Sliders Plugin -->
 <script src="<?=base_url()?>assets/vendors/nouislider.min.js"></script>
 <!--  Google Maps Plugin    -->
