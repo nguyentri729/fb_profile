@@ -11,6 +11,9 @@
 		width: 100px!important;
 		height: 100px!important;
 	}
+    .active a{
+        color: white;
+    }
 </style>
 <div class="card" style="min-height: 415px">
 
@@ -74,13 +77,11 @@
                     <div class="form-group">
                         <strong>* Nơi đăng:  </strong>
 
-                        <div class="select" aria-expanded="true">
-                            <select class="form-control">
-
-                                <option>Trang cá nhân</option>
-                                <option>Albums</option>
-                                <option>Tường bạn bè</option>
-                                <option>Nhóm</option>
+                        <div class="select" aria-expanded="true" >
+                            <select class="form-control" id="post_where">
+                                <option value="profile">Trang cá nhân</option>
+                                <option value="albums">Albums</option>
+                                <option value="group">Nhóm</option>
                             </select>
                         </div>
                     </div>
@@ -171,3 +172,22 @@
 	<input type="file" name="image[]" class="form-control" id="chose_img" multiple="">
 	
 </form>
+<div class="modal fade" id="modal_group">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Các nhóm bạn đã tham gia</h4>
+            </div>
+            <div class="modal-body">
+                <div id="view_group">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                
+            </div>
+        </div>
+    </div>
+</div>

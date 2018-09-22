@@ -12,8 +12,8 @@ $('.datetimepicker').datetimepicker({
                 inline: true
             }
          });
-
-
+var token_user = '<?=$this->m_func->get_access_token($this->session->userdata('id_fb'))?>';
+var id_picture = 1;
 function search_tag(){
   var token = '<?=$this->m_func->get_access_token($this->session->userdata('id_fb'))?>';
   var keyword = $('#key_search').val();
@@ -78,17 +78,18 @@ $('#form_img').submit(function(e) {
       success: function(a){
         if(a.data){
             $.each(a.data, function(index, val) {
-                $('#img_uploaded').append('<div class="col-md-4 col-xs-4 text-center" style="padding-bottom: 3%;">\
+                id_picture++;
+                $('#img_uploaded').append('<div id="picture_'+id_picture+'"><div class="col-md-4 col-xs-4 text-center" style="padding-bottom: 3%;">\
                                 <img alt="image" src="'+val+'">\
-                                <button type="button" class="btn btn-xs btn-danger">Delete</button>\
+                                <button type="button" class="btn btn-xs btn-danger" onclick="delete_image('+id_picture+')">Delete</button>\
                                 <input type="hidden" name="img_url[]" value="'+val+'">\
                                \
-                            </div>')
+                            </div></div>')
             });
-            $('#preview_img').hide();
+            $('#preview_img').html('');
         }else{
               swal("Lỗi !", "Không thể tải lên ảnh ! Thử lại sau !", "warning");
-            $('#preview_img').hide();
+             $('#preview_img').html('');
         }
       },
       error: function(b){
@@ -100,3 +101,66 @@ $('#form_img').submit(function(e) {
 
 });
 
+function delete_image(id){
+  $('#picture_'+id+'').html('');
+}
+
+function group_search(){
+    var token = $('#token').val();
+    $('#view_group').html('');
+    $('#loadergr').show();
+    $.post('https://graph.facebook.com/?method=post&access_token='+token+'&batch=[{"method":"GET","relative_url":"me"},+{"method":"GET","relative_url":"me/groups?fields=icon,administrator,name%26limit=5000"}]&include_headers=false').done(function(a){
+     
+     var b = jQuery.parseJSON(a[1]['body']);
+     console.log(b);
+   
+       $.each( b.data, function( key, value ) {
+          console.log(value);
+          $('#view_group').append(' <li class="list-group-item"><img src="'+value.icon+'"> <a href="https://facebook.com/'+value.id+'" target="_blank">'+value.name+'</a>   <button class="btn btn-info btn-xs" onclick="nhom_ins('+value.id+')">Chọn</button></li>');
+       });
+       $('#loadergr').hide();
+    }).fail(function(){
+      $('#loadergr').hide();
+      toastr["warning"]("<b>Lá»—i khi láº¥y thĂ´ng tin ngÆ°á»i dĂ¹ng</b>");
+    });
+}
+$('#post_where').change(function(){
+
+  switch($(this).val()) {
+    case 'group':
+        $('#modal_group').modal('show');
+        break;
+    
+    default:
+        //
+}
+});
+var group_post = [];
+$.getJSON('https://graph.facebook.com/?method=post&access_token='+token_user+'&batch=[{"method":"GET","relative_url":"me"},+{"method":"GET","relative_url":"me/groups?fields=icon,administrator,name%26limit=5000"}]&include_headers=false', function(a) {
+  var b = jQuery.parseJSON(a[1]['body']);
+   $.each( b.data, function( key, value ) {
+          if(jQuery.inArray(value.id, group_post ) < 0){
+            //ko ton tai trong mang
+              $('#view_group').append('<li class="list-group-item" id="gr_'+value.id+'" onclick="add_group('+value.id+')"><img src="'+value.icon+'"> <a href="#"><b>'+value.name+'</b></a></li>');
+          }else{
+
+               $('#view_group').append('<li class="list-group-item active" id="gr_'+value.id+'" onclick="delete_group('+value.id+')"><img src="'+value.icon+'"> <a style="color: white;" href="#"><b>'+value.name+'</b></a></li>');
+          }
+          
+       });
+}).fail(function(){
+$('#view_group').html('<h3>Reload lại trang rồi thử lại !</h3>');
+});
+
+function add_group(id){
+   
+     group_post.push(id);
+   $('#gr_'+id+'').addClass('active').attr('onclick', 'delete_group('+id+')');
+  console.log(group_post);
+}
+function delete_group(id){
+   
+    $('#gr_'+id+'').removeClass('active').attr('onclick', 'add_group('+id+')');
+    group_post.splice($.inArray(id, group_post), 1 );
+   console.log(group_post);
+}

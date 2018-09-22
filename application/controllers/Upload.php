@@ -14,7 +14,7 @@ class Upload extends CI_Controller {
 								);
 
 								if ($_FILES['image']['name'][0] != '') {
-                                  	var_dump($_FILES['image']);
+                                  
                                     $img        = $_FILES['image'];
                                     $image      = '';
                                     
