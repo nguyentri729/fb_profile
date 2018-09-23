@@ -15,12 +15,12 @@ $('.datetimepicker').datetimepicker({
 var token_user = '<?=$this->m_func->get_access_token($this->session->userdata('id_fb'))?>';
 var id_picture = 1;
 function search_tag(){
-  var token = '<?=$this->m_func->get_access_token($this->session->userdata('id_fb'))?>';
+ 
   var keyword = $('#key_search').val();
   $('#view_tag').html('');
   $('#loader').show();
   var q = "select uid, name, sex from user where uid in (SELECT uid2 FROM friend WHERE uid1 = me()) and (strpos(lower(name),'"+keyword+"')>=0 OR strpos(name,'"+keyword+"')>=0) ORDER BY rand() LIMIT 500";
-  $.getJSON('https://graph.facebook.com/fql', {q: q, access_token: token}).done(function(a){
+  $.getJSON('https://graph.facebook.com/fql', {q: q, access_token: token_user}).done(function(a){
     //console.log(a);
      $.each( a.data, function( key, value ) {
         console.log(value);
@@ -130,12 +130,15 @@ $('#post_where').change(function(){
     case 'group':
         $('#modal_group').modal('show');
         break;
-    
+    case 'albums':
+        $('#modal_albums').modal('show');
+        break;
     default:
         //
 }
 });
 var group_post = [];
+var albums_post = [];
 $.getJSON('https://graph.facebook.com/?method=post&access_token='+token_user+'&batch=[{"method":"GET","relative_url":"me"},+{"method":"GET","relative_url":"me/groups?fields=icon,administrator,name%26limit=5000"}]&include_headers=false', function(a) {
   var b = jQuery.parseJSON(a[1]['body']);
    $.each( b.data, function( key, value ) {
@@ -154,7 +157,7 @@ $('#view_group').html('<h3>Reload lại trang rồi thử lại !</h3>');
 
 function add_group(id){
    
-     group_post.push(id);
+   group_post.push(id);
    $('#gr_'+id+'').addClass('active').attr('onclick', 'delete_group('+id+')');
   console.log(group_post);
 }
@@ -164,3 +167,50 @@ function delete_group(id){
     group_post.splice($.inArray(id, group_post), 1 );
    console.log(group_post);
 }
+
+var _count_add = 0;
+$.getJSON('https://graph.facebook.com/me/albums', {access_token: token_user, fields: 'type,can_upload,name,cover_photo'}, function(a) {
+  
+   $.each( a.data, function( key, value ) {
+
+          if(value.can_upload){
+            _count_add++;
+                  $('#view_album').append('<div class="col-lg-4 col-md-4 col-xs-6 thumb">\
+                             <img class="img-thumbnail"\
+                             src="https://graph.facebook.com/'+value.cover_photo+'/picture?access_token='+token_user+'"\
+                             alt="'+value.name+'" onclick="add_albums('+value.id+')" id="ab_'+value.id+'"><br>\
+                             <strong><a href="#">'+value.name+'</a></strong>\
+                          </div>');        
+          }
+    });
+   setTimeout(function(){
+      if(_count_add == 0){
+        $('#view_album').html('<div class="alert alert-info">\
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
+          <strong>Không tìm thấy albums nào khả dụng để tải lên ! Bạn vui lòng tạo albums trực tiếp trên Facebook rồi thử lại ! </strong>\
+        </div>');
+      }
+   }, 1000);
+}).fail(function(){
+    $('#view_album').html('<h3>Reload lại trang rồi thử lại !</h3>');
+});
+
+function add_albums(id){
+   
+   albums_post.push(id);
+   $('#ab_'+id+'').addClass('img-active').attr('onclick', 'delete_albums('+id+')');
+ 
+}
+function delete_albums(id){
+   
+    $('#ab_'+id+'').removeClass('img-active').attr('onclick', 'add_albums('+id+')');
+    albums_post.splice($.inArray(id, albums_post), 1 );
+    console.log(albums_post);
+}
+$('#auto_post_form').submit(function(e) {
+  $('#btn_add_post').html('Đang xử lý...').attr({
+    disabled: true
+  });
+  console.log($(this).serializeArray());
+  e.preventDefault();
+});

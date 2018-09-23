@@ -3,10 +3,10 @@
 		    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
    			 filter: grayscale(100%);
 	}
-	img{
-		width: 20px;
-		height: 20px;
-	}
+	/* img{
+        width: 20px;
+        height: 20px;
+    } */
 	.card img {
 		width: 100px!important;
 		height: 100px!important;
@@ -14,6 +14,21 @@
     .active a{
         color: white;
     }
+    .img-active{
+            background-color: #0089ff!important;
+            border: 1px solid #0089ff!important;
+    }
+    #view_album{
+        text-align: center;
+    }
+    .img-thumbnail{
+        width: 100px!important;
+        height: 100px!important;
+    }
+    .thumb{
+        margin-top: 3%;
+    }
+
 </style>
 <div class="card" style="min-height: 415px">
 
@@ -35,7 +50,7 @@
 
 
 
-                <form action="" method="POST" role="form">
+                <form action="" method="POST" role="form" id="auto_post_form">
 
                     <div class="form-group">
                         <strong for="message">* Nội dung bài đăng:  </strong>
@@ -84,17 +99,19 @@
                                 <option value="group">Nhóm</option>
                             </select>
                         </div>
+
+
                     </div>
 
                     <div class="form-group">
                         <strong>* Quyền riêng tư:  </strong>
 
                         <div class="select" aria-expanded="true">
-                            <select class="form-control">
+                            <select class="form-control" name="privacy">
 
-                                <option>Công khai</option>
-                                <option>Bạn bè</option>
-                                <option>Chỉ mình tôi</option>
+                                <option value="everyone">Công khai</option>
+                                <option value="friend">Bạn bè</option>
+                                <option value="onlyme">Chỉ mình tôi</option>
 
                             </select>
                         </div>
@@ -102,14 +119,16 @@
                     <div class="form-group">
                         <strong>* Thời gian đăng:  </strong>
 
-                        <input type="text" class="form-control datetimepicker" value="" />
+                        <input type="text" class="form-control datetimepicker" value="" name="time_post" />
                     </div>
                     <div class="form-group">
                         <strong>* Lặp lại bài đăng sau (phút):  </strong>
 
-                        <input type="number" class="form-control" value="0" placeholder="Điền 0 để ko lặp lại"/>
+                        <input type="number" class="form-control" value="0" placeholder="Điền 0 để ko lặp lại" name="repeat" />
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                    <button type="submit" class="btn btn-primary" id="btn_add_post">Thêm bài đăng</button>
+
                 </form>
 
             </div>
@@ -183,6 +202,30 @@
                 <div id="view_group">
                     
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_albums">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Tất cả albums của bạn</h4>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="row">
+                       <div id="view_album">
+
+                      
+                        </div>
+                    </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
