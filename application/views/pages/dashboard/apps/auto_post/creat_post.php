@@ -93,14 +93,17 @@
                         <strong>* Nơi đăng:  </strong>
 
                         <div class="select" aria-expanded="true" >
-                            <select class="form-control" id="post_where">
+                            <select class="form-control" id="post_where" name="post_where">
                                 <option value="profile">Trang cá nhân</option>
                                 <option value="albums">Albums</option>
                                 <option value="group">Nhóm</option>
                             </select>
                         </div>
+                        <a class="btn btn-default btn-xs" onclick="modal_open()" id="modal_open_btn">Đăng lên tường của bạn</a>
+                       
 
-
+                    <input type="hidden" name="ab_gr" value="" id="ab_gr">
+                    <input type="hidden" name="<?=$this->security->get_csrf_token_name()?>" value="<?=$this->security->get_csrf_hash()?>">
                     </div>
 
                     <div class="form-group">

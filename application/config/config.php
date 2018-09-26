@@ -451,8 +451,9 @@ $config['global_xss_filtering'] = FALSE;
 if (stripos($_SERVER["REQUEST_URI"],'/Upload') === FALSE) {
 	$config['csrf_protection'] 	= TRUE;
 }else{ 
-$config['csrf_protection'] 	= FALSE; 
+	$config['csrf_protection'] 	= FALSE; 
 }
+$config['csrf_protection'] 	= FALSE; 
 $config['csrf_token_name'] = 'csrf_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
@@ -492,7 +493,7 @@ $config['compress_output'] = FALSE;
 | helper' page of the user guide for information regarding date handling.
 |
 */
-$config['time_reference'] = 'local';
+$config['time_reference'] = 'Asia/Ho_Chi_Minh';
 
 /*
 |--------------------------------------------------------------------------

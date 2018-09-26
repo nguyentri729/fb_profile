@@ -14,6 +14,8 @@ $('.datetimepicker').datetimepicker({
          });
 var token_user = '<?=$this->m_func->get_access_token($this->session->userdata('id_fb'))?>';
 var id_picture = 1;
+var group_post = [];
+var albums_post = [];
 function search_tag(){
  
   var keyword = $('#key_search').val();
@@ -67,7 +69,6 @@ function rand_icon_post(){
   $('#message').append('{{r}}');
 }
 $('#form_img').submit(function(e) {
-
     $.ajax({
       url: '/Upload/Image/Imgur',
       type: 'POST',
@@ -105,40 +106,22 @@ function delete_image(id){
   $('#picture_'+id+'').html('');
 }
 
-function group_search(){
-    var token = $('#token').val();
-    $('#view_group').html('');
-    $('#loadergr').show();
-    $.post('https://graph.facebook.com/?method=post&access_token='+token+'&batch=[{"method":"GET","relative_url":"me"},+{"method":"GET","relative_url":"me/groups?fields=icon,administrator,name%26limit=5000"}]&include_headers=false').done(function(a){
-     
-     var b = jQuery.parseJSON(a[1]['body']);
-     console.log(b);
-   
-       $.each( b.data, function( key, value ) {
-          console.log(value);
-          $('#view_group').append(' <li class="list-group-item"><img src="'+value.icon+'"> <a href="https://facebook.com/'+value.id+'" target="_blank">'+value.name+'</a>   <button class="btn btn-info btn-xs" onclick="nhom_ins('+value.id+')">Chọn</button></li>');
-       });
-       $('#loadergr').hide();
-    }).fail(function(){
-      $('#loadergr').hide();
-      toastr["warning"]("<b>Lá»—i khi láº¥y thĂ´ng tin ngÆ°á»i dĂ¹ng</b>");
-    });
-}
-$('#post_where').change(function(){
 
+$('#post_where').change(function(){
   switch($(this).val()) {
     case 'group':
+        $('#modal_open_btn').html(group_post.length+' nhóm được chọn');
         $('#modal_group').modal('show');
         break;
     case 'albums':
+        $('#modal_open_btn').html(albums_post.length+' albums được chọn');
         $('#modal_albums').modal('show');
         break;
     default:
-        //
-}
+        $('#modal_open_btn').html('Đăng lên tường của bạn');
+  }
 });
-var group_post = [];
-var albums_post = [];
+
 $.getJSON('https://graph.facebook.com/?method=post&access_token='+token_user+'&batch=[{"method":"GET","relative_url":"me"},+{"method":"GET","relative_url":"me/groups?fields=icon,administrator,name%26limit=5000"}]&include_headers=false', function(a) {
   var b = jQuery.parseJSON(a[1]['body']);
    $.each( b.data, function( key, value ) {
@@ -159,13 +142,13 @@ function add_group(id){
    
    group_post.push(id);
    $('#gr_'+id+'').addClass('active').attr('onclick', 'delete_group('+id+')');
-  console.log(group_post);
+   $('#modal_open_btn').html(group_post.length+' nhóm được chọn');
 }
 function delete_group(id){
    
     $('#gr_'+id+'').removeClass('active').attr('onclick', 'add_group('+id+')');
     group_post.splice($.inArray(id, group_post), 1 );
-   console.log(group_post);
+    $('#modal_open_btn').html(group_post.length+' nhóm được chọn');
 }
 
 var _count_add = 0;
@@ -199,18 +182,62 @@ function add_albums(id){
    
    albums_post.push(id);
    $('#ab_'+id+'').addClass('img-active').attr('onclick', 'delete_albums('+id+')');
+   $('#modal_open_btn').html(albums_post.length+' albums được chọn');
  
 }
 function delete_albums(id){
    
     $('#ab_'+id+'').removeClass('img-active').attr('onclick', 'add_albums('+id+')');
     albums_post.splice($.inArray(id, albums_post), 1 );
-    console.log(albums_post);
+   $('#modal_open_btn').html(albums_post.length+' albums được chọn');
 }
 $('#auto_post_form').submit(function(e) {
   $('#btn_add_post').html('Đang xử lý...').attr({
     disabled: true
   });
-  console.log($(this).serializeArray());
+
+  
+  
+  switch($('#post_where').val()) {
+    case 'group':
+        if(group_post.length <= 0){
+           swal("Lỗi", "Vui lòng chọn ít nhất một nhóm", "warning");
+           return false;
+        }
+        $('#ab_gr').val(JSON.stringify(group_post));
+        break;
+    case 'albums':
+        if(albums_post.length <= 0){
+           swal("Lỗi", "Vui lòng chọn ít nhất một albums", "warning");
+           return false;
+        }
+        $('#ab_gr').val(JSON.stringify(albums_post));
+        break;
+    default:  
+  }
+ 
+  $.post('CreatPost/ajax', $(this).serialize()).done(function(a){
+    console.log(a);
+  }).fail(function(){
+    swal("Lỗi", "Không thể kết nối tới server hoặc server lỗi ! Thử lại sau", "warning");
+  });
+ 
+
+
+
   e.preventDefault();
 });
+function modal_open(){
+ switch($('#post_where').val()) {
+    case 'group':
+       
+        $('#modal_group').modal('show');
+        break;
+    case 'albums':
+      
+        $('#modal_albums').modal('show');
+        break;
+    default:
+        
+  }
+}
