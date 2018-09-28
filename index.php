@@ -302,7 +302,9 @@ switch (ENVIRONMENT)
 		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
 		exit(3); // EXIT_CONFIG
 	}
-
+	/*if ( function_exists( 'date_default_timezone_set' ) ) {
+	    date_default_timezone_set('Asia/Ho_Chi_Minh');
+	}*/
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
 /*

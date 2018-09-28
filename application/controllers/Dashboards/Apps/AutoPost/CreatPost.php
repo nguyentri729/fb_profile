@@ -3,7 +3,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CreatPost extends CI_Controller {
-	private $s_post = 0;
+	public $s_post = 0;
+	
 	public function __construct()
 	{
 		parent::__construct();
@@ -27,21 +28,57 @@ class CreatPost extends CI_Controller {
 		$this->load->view('layout/main', $data, FALSE);
 	}
 	public function ajax(){
-		/*$date = new DateTime($this->input->post('time_post'));
-		echo $date->getTimestamp();*/
+		
+		$result = array(
+			'status' => false,
+			'msg'    => 'error code 1'
+		);
 		$this->form_validation->set_rules('message', 'Nội dung', 'xss_clean|callback_noidung');
-		$this->form_validation->set_rules('img[]', 'Hình ảnh', 'valid_url');
+		$this->form_validation->set_rules('img_url[]', 'Hình ảnh', 'valid_url');
 		$this->form_validation->set_rules('post_where', 'Nơi post', 'required|callback_wherepost');
 		$this->form_validation->set_rules('privacy', 'privacy', 'required|callback_privacy');
 		$this->form_validation->set_rules('ab_gr', 'ab_gr', 'required|callback_ab_gr');
-		
-		$this->form_validation->set_rules('time_post', 'Thời gian đăng bài', 'required|callback_time_post');
+		$this->form_validation->set_rules('gio', 'Thời gian đăng bài', 'required|callback_time_post');
+		$this->form_validation->set_rules('ngay', 'Gio', 'required');
 		$this->form_validation->set_rules('repeat', 'Thời gian lặp', 'required|integer|greater_than_equal_to[0]');
 		if ($this->form_validation->run()) {
-			echo 'ok';
+
+			
+			
+			
+			$insert = array(
+				'id_fb' => $this->session->userdata('id_fb'),
+				'message' => $this->input->post('message'),
+				'image' => json_encode($this->input->post('img_url')),
+				'post_where' => $this->input->post('post_where'),
+				'ab_gr' => $this->input->post('ab_gr'),
+				'privacy' => $this->input->post('privacy'),
+				'time_post' => $this->s_post,
+				'time_repeat' => $this->input->post('repeat') * 60,
+				'time_creat' => time(),
+				'active' => 1
+			);
+			if($this->db->insert('posts', $insert)){
+				$result = array(
+					'status' => true,
+					'msg'    => 'Thêm bài đăng thành công ! '
+				);
+			}else{
+				$result = array(
+					'status' => false,
+					'msg'    => 'Lỗi hệ thống ! Thử lại sau ít phút'
+				);
+			}
+
+
 		} else {
-			echo validation_errors();
+			$result = array(
+				'status' => false,
+				'msg'    => validation_errors()
+			);
+			
 		}
+		$this->m_func->return_json($result);
 	}
 	public function wherepost($where){
 		if($where != 'profile' && $where != 'group' && $where != 'albums'){
@@ -60,23 +97,24 @@ class CreatPost extends CI_Controller {
 		}
 	}
 	public function time_post($time){
-		$date = new DateTime($time);
-		$this->s_post = $date->getTimestamp();
-		if(time() <= $this->s_post){
-			$this->form_validation->set_message('time_post', '{field} phải lớn hơn thời gian hiện tại !');
-             return FALSE;
-		}else{
-			return TRUE;
-		}
+		    $this->s_post = $this->convert_day_to_mktime($this->input->post('gio'), $this->input->post('ngay'));
+			 if (time() < $this->s_post) {
+			 	 return TRUE;
+			 }else{
+			 		$this->form_validation->set_message('time_post', '{field} phải lớn hơn thời gian hiện tại !');
+				  return FALSE;
+			 }
+			
 	}
 	public function noidung($nd){
-		if($nd == '' && $this->input->post('img') == ''){
+		if($nd == '' && $this->input->post('img_url') == ''){
 			$this->form_validation->set_message('noidung', '{field} không được bỏ trống');
              return FALSE;
 		}else{
 			return true;
 		}
 	}
+
 	public function ab_gr($ab_gr){
 		if($this->input->post('wherepost') == 'group' || $this->input->post('wherepost') == 'albums'){
 			$list_id = json_decode($ab_gr, false, 512, JSON_BIGINT_AS_STRING);
@@ -95,7 +133,13 @@ class CreatPost extends CI_Controller {
 		}else{
 			return true;
 		}
+
 		
+	}
+	private function convert_day_to_mktime($h, $d){
+		$h_arr = explode(':', $h);
+		$d_arr = explode('/', $d);
+		return mktime($h_arr[0],$h_arr[1],0,$d_arr[0],$d_arr[1],$d_arr[2]);
 	}
 
 

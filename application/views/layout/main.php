@@ -24,7 +24,15 @@
     <link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Material Dashboard CSS    -->
     <link href="<?=base_url()?>assets/css/turbo.css" rel="stylesheet" />
-    
+
+
+
+        <link href="<?=base_url()?>assets/vendors/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+        <link href="<?=base_url()?>assets/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+        <link href="<?=base_url()?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">   
+
+      
+
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
@@ -198,10 +206,12 @@
 <!-- Forms Validations Plugin -->
 <script src="<?=base_url()?>assets/vendors/jquery.validate.min.js"></script>
 <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
-<script src="<?=base_url()?>assets/vendors/moment.min.js"></script>
+<script src="<?=base_url()?>assets/vendors/timepicker/bootstrap-timepicker.min.js"></script>
 
 <!-- DateTimePicker Plugin -->
-<script src="<?=base_url()?>assets/vendors/bootstrap-datetimepicker.js"></script>
+<script src="<?=base_url()?>assets/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+ <script src="<?=base_url()?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <!-- Sliders Plugin -->
 <script src="<?=base_url()?>assets/vendors/nouislider.min.js"></script>

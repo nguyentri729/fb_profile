@@ -1,17 +1,16 @@
-$('.datetimepicker').datetimepicker({
-            icons: {
-                time: "fa fa-clock-o",
-                date: "fa fa-calendar",
-                up: "fa fa-chevron-up",
-                down: "fa fa-chevron-down",
-                previous: 'fa fa-chevron-left',
-                next: 'fa fa-chevron-right',
-                today: 'fa fa-screenshot',
-                clear: 'fa fa-trash',
-                close: 'fa fa-remove',
-                inline: true
-            }
-         });
+$(function(){
+   jQuery('#timepicker2').timepicker({
+      showMeridian : false,
+        icons: {
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down'
+        }
+    });
+    jQuery('#datepicker-autoclose').datepicker({
+          autoclose: true,
+          todayHighlight: true
+    });
+});
 var token_user = '<?=$this->m_func->get_access_token($this->session->userdata('id_fb'))?>';
 var id_picture = 1;
 var group_post = [];
@@ -217,7 +216,17 @@ $('#auto_post_form').submit(function(e) {
   }
  
   $.post('CreatPost/ajax', $(this).serialize()).done(function(a){
-    console.log(a);
+    if(a['status']){
+                    swal("Thành công !", a.msg, "success").then(() => {
+                         location.reload();
+                    });
+
+                }else{
+                    swal("Có lỗi !", a.msg, "warning").then(() => {
+                         location.reload();
+                    });
+
+                }
   }).fail(function(){
     swal("Lỗi", "Không thể kết nối tới server hoặc server lỗi ! Thử lại sau", "warning");
   });

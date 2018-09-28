@@ -54,7 +54,7 @@
 
                     <div class="form-group">
                         <strong for="message">* Nội dung bài đăng:  </strong>
-                        <textarea name="message" id="message" class="form-control" rows="3" required="required" placeholder="Bạn đang nghĩ gì ?"></textarea>
+                        <textarea name="message" id="message" class="form-control" rows="3" placeholder="Bạn đang nghĩ gì ?"></textarea>
 
                         <!-- <div style="padding-top: 4px;">
                             <a href="#"><i class="fa fa-tag" aria-hidden="true"></i></a>
@@ -102,7 +102,7 @@
                         <a class="btn btn-default btn-xs" onclick="modal_open()" id="modal_open_btn">Đăng lên tường của bạn</a>
                        
 
-                    <input type="hidden" name="ab_gr" value="" id="ab_gr">
+                    <input type="hidden" name="ab_gr" value="null" id="ab_gr">
                     <input type="hidden" name="<?=$this->security->get_csrf_token_name()?>" value="<?=$this->security->get_csrf_hash()?>">
                     </div>
 
@@ -119,11 +119,24 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <strong>* Thời gian đăng:  </strong>
+                 
+                            <div class="form-group">
+                                <strong>Giờ post bài<strong>
+                                
+                                    <input id="timepicker2" type="text" class="form-control" name="gio" required="">        
+                                
+                            </div>
+                       
 
-                        <input type="text" class="form-control datetimepicker" value="" name="time_post" />
-                    </div>
+                            <div class="form-group">
+                                <strong>Ngày post bài<strong>
+                                
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="datepicker-autoclose" name="ngay" required="">
+                                            
+                               
+                            </div>
+                       
+
                     <div class="form-group">
                         <strong>* Lặp lại bài đăng sau (phút):  </strong>
 
