@@ -11,6 +11,22 @@ class M_func extends CI_Model {
 			exit();
 		}
 	}
+	function info_member(){
+		if($this->session->has_userdata('id_fb')){
+			
+			$id_fb = $this->session->userdata('id_fb');
+			$this->db->where('id_fb', $id_fb);
+			$get = $this->db->get('members');
+			if($get->num_rows() > 0){
+				return $get->result_array()[0];
+			}else{
+				return false;
+			}
+
+		}else{
+			return false;
+		}
+	}
 	function check_login(){
 		if($this->session->has_userdata('id_fb')){
 			$id_fb = $this->session->userdata('id_fb');

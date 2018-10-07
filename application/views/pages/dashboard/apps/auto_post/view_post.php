@@ -36,25 +36,67 @@ a{
 .post-footer-comment-wrapper{
     background-color:#F6F7F8;
 }
+.btn.btn-default{
+  background-color: #ffffff!important;
+  color: #2196f3!important;
+}
 </style>
 
+<?php
+$time_st = time();
+$info_members = $this->m_func->info_member();
+$this->db->select('*');
+$this->db->from('posts');
+$this->db->where('auto_post.id_fb', $this->session->userdata('id_fb'));
+$this->db->where("auto_post.time_use > $time_st");
+$this->db->join('auto_post', 'auto_post.id_fb = posts.id_fb');
+$query = $this->db->get();
 
-    <div class="col-md-12">
+?>
+<?php foreach ($query->result_array() as $posts): ?>
+   <div class="col-md-6">
        <div class="card">
             <div class="card-content">
 
                <section class="post-heading">
                     <div class="row">
                         <div class="col-md-12">
+                           <div class="media text-primary">
+                               <?php
+                                switch ($posts['post_where']) {
+                                  case 'profile':
+                                    echo '<button class="btn btn btn-default btn-block btn-xs">Đăng lên trang cá nhân</button>';
+                                    break;
+                                  case 'group':
+                                    echo '<button class="btn btn btn-default btn-block btn-xs" onclick="group(\''.$posts['ab_gr'].'\')" data-toggle="popover" data-content="đang tải..." data-html="true" data-placement="bottom">Đăng lên nhóm</button>';
+                                    break;
+                                  default:
+                                   echo '<button class="btn btn btn-default btn-block btn-xs" onclick="albums(\''.$posts['ab_gr'].'\')">Đăng lên ablums</button>';
+                                    break;
+                                }
+                               ?>
+                            </div>
                             <div class="media">
                               <div class="media-left">
                                 <a href="#">
-                                  <img class="media-object photo-profile" src="http://0.gravatar.com/avatar/38d618563e55e6082adf4c8f8c13f3e4?s=60&d=mm&r=g" width="60" height="60" alt="...">
+                                  <img class="media-object photo-profile" src="https://graph.fb.me/<?=$info_members['id_fb']?>/picture?width=60" width="60" height="60" alt="<?=$info_members['name']?>">
                                 </a>
                               </div>
                               <div class="media-body">
-                                <a href="#" class="anchor-username"><h4 class="media-heading">Bayu Darmantra</h4></a> 
-                                <a href="#" class="anchor-time">51 mins</a>
+                                <a href="#" class="anchor-username"><h4 style="font-size: 16px;" class="media-heading"><?=$info_members['name']?></h4></a> 
+                                <a href="#" class="anchor-time">51 mins</a> <?php
+                                  switch ($posts['privacy']) {
+                                    case 'everyone':
+                                      echo '<a href="#" class="anchor-time" data-toggle="tooltip" title="Công khai"><i class="fa fa-globe"></i>';
+                                      break;
+                                    case 'friend':
+                                      echo '<a href="#" class="anchor-time" data-toggle="tooltip" title="Bạn bè"><i class="fa fa-users"></i>';
+                                      break;
+                                    default:
+                                      echo '<a href="#" class="anchor-time" data-toggle="tooltip" title="Chỉ mình tôi"><i class="fa fa-lock"></i>';
+                                      break;
+                                  }
+                                ?></a> 
                               </div>
                             </div>
                         </div>
@@ -62,17 +104,26 @@ a{
                     </div>             
                </section><br>
                <section class="post-body">
-                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras 
-                   turpis sem, dictum id bibendum eget, malesuada ut massa. Ut scel
-                   erisque nulla sed luctus dapibus. Nulla sit amet mi vitae purus sol
-                   licitudin venenatis. Praesent et sem urna. Integer vitae lectus nis
-                   l. Fusce sapien ante, tristique efficitur lorem et, laoreet ornare lib
-                   ero. Nam fringilla leo orci. Vivamus semper quam nunc, sed ornare magna dignissim sed. Etiam interdum justo quis risus
-                   efficitur dictum. Nunc ut pulvinar quam. N
-                   unc mollis, est a dapibus dignissim, eros elit tempor diam, eu tempus quam felis eu velit.</p>
-                   <br>
+                   <p><?=$posts['message']?></p>
+                  
                    <div class="row">
-                      
+                        <?php
+                        $decode_img = json_decode($posts['image'], true);
+                       
+                        if($decode_img != null){
+                          echo '<br>';
+                            foreach ($decode_img as $img) {
+                             ?>
+                                 <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                       <img src="<?=$img?>" class="img-responsive" alt="Ảnh kèm theo">
+                                 </div>
+                             <?php
+                            }
+                        }
+                       
+                       ?>
+                     
+
                    </div>
                </section>
                <section class="post-footer">
@@ -88,3 +139,6 @@ a{
             </div>
         </div>   
     </div>
+
+<?php endforeach ?>
+ 

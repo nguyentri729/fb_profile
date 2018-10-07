@@ -11,6 +11,7 @@ class ViewPost extends CI_Controller {
 		if($this->m_func->check_login()==false){
 			redirect('/Login');
 		}
+
 	}
 	public function index()
 	{
