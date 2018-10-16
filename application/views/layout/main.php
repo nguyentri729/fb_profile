@@ -39,7 +39,9 @@
 </head>
 
 <body>
+    <div class="loading" style="display: none;">Loading&#8230;</div>
     <div class="wrapper">
+
         <div class="sidebar">
             <div class="logo">
                 <a href="#" class="simple-text">
@@ -86,9 +88,12 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> <?php
+                        <a class="navbar-brand" href="#" onclick="quay_lai();"> <?php
 
                         if(isset($title)){
+                            if($title !='Tổng quan'){
+                                echo '<i class="fa fa-chevron-left" aria-hidden="true"></i> ';
+                            }
                             echo $title;
                         }else{
                             echo 'Tổng quan';
@@ -233,6 +238,10 @@
 <script src="<?=base_url()?>assets/js/turbo.js"></script>
 
 <script type="text/javascript">
+    function quay_lai(){
+        $('.loading').show();
+        window.history.go(-1);
+    }
     <?php
 
         if(isset($script)){

@@ -45,13 +45,13 @@ a{
 <?php
 $time_st = time();
 $info_members = $this->m_func->info_member();
-$this->db->select('*');
+$this->db->select('posts.id, posts.post_where, posts.ab_gr, posts.time_post, posts.image, posts.message, posts.privacy');
 $this->db->from('posts');
 $this->db->where('auto_post.id_fb', $this->session->userdata('id_fb'));
 $this->db->where("auto_post.time_use > $time_st");
 $this->db->join('auto_post', 'auto_post.id_fb = posts.id_fb');
 $query = $this->db->get();
-
+//$this->output->enable_profiler(TRUE);
 ?>
 <?php foreach ($query->result_array() as $posts): ?>
    <div class="col-md-6">
@@ -71,7 +71,7 @@ $query = $this->db->get();
                                     echo '<button class="btn btn btn-default btn-block btn-xs" onclick="group(\''.$posts['ab_gr'].'\')" data-toggle="popover" data-content="đang tải..." data-html="true" data-placement="bottom">Đăng lên nhóm</button>';
                                     break;
                                   default:
-                                   echo '<button class="btn btn btn-default btn-block btn-xs" onclick="albums(\''.$posts['ab_gr'].'\')">Đăng lên ablums</button>';
+                                   echo '<button class="btn btn btn-default btn-block btn-xs" onclick="albums(\''.$posts['ab_gr'].'\')" data-toggle="popover" data-content="đang tải..." data-html="true" data-placement="bottom">Đăng vào albums</button>';
                                     break;
                                 }
                                ?>
@@ -84,7 +84,15 @@ $query = $this->db->get();
                               </div>
                               <div class="media-body">
                                 <a href="#" class="anchor-username"><h4 style="font-size: 16px;" class="media-heading"><?=$info_members['name']?></h4></a> 
-                                <a href="#" class="anchor-time">51 mins</a> <?php
+                                <a href="#" class="anchor-time"><?php
+
+                               
+                                if($posts['time_post'] < time()){
+                                  echo ''.gmdate("Y-m-d H:i", $posts['time_post']).' ('.$this->m_func->timeAgo($posts['time_post']).')';
+                                }else{
+                                  echo ''.gmdate("Y-m-d H:i", $posts['time_post']).' ('.$this->m_func->time_remaining($posts['time_post']).' nữa)';
+                                }
+                                ?></a> <?php
                                   switch ($posts['privacy']) {
                                     case 'everyone':
                                       echo '<a href="#" class="anchor-time" data-toggle="tooltip" title="Công khai"><i class="fa fa-globe"></i>';
@@ -114,7 +122,7 @@ $query = $this->db->get();
                           echo '<br>';
                             foreach ($decode_img as $img) {
                              ?>
-                                 <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4">
+                                 <div class="col-md-4 col-xs-4 col-lg-4 col-sm-4" style="padding: 3%;">
                                        <img src="<?=$img?>" class="img-responsive" alt="Ảnh kèm theo">
                                  </div>
                              <?php
@@ -129,9 +137,13 @@ $query = $this->db->get();
                <section class="post-footer">
                    <hr>
                    <div class="post-footer-option container">
-                        <ul class="list-unstyled">
-                            <li style="color: red;"><a href="#"><i class="fa fa-trash"></i> Xóa lịch</a></li>
-                           
+                        <ul class="list-unstyled text-center">
+                            <li><a href="#" onclick="delete_post(<?=$posts['id']?>)" style="color: red!important;"><i class="fa fa-trash"></i> Xóa lịch</a></li>
+                            <?php
+                            if(time() >= $posts['time_post']){
+                              echo '<li ><a href="#" style="color: #4CAF50!important;" ><i class="fa fa-check"></i> Đã đăng bài</a></li>';
+                            }
+                            ?>
                         </ul>
                    </div>
                    

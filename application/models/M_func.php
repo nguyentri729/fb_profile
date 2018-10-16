@@ -125,6 +125,104 @@ class M_func extends CI_Model {
 		  	return false;
 		  }
 	}
+	public function timeAgo($time_ago){
+		  $cur_time 	= time();
+		  $time_elapsed = $cur_time - $time_ago;
+		  $seconds 		= $time_elapsed ;
+		  $minutes 		= round($time_elapsed / 60 );
+		  $hours 		= round($time_elapsed / 3600);
+		  $days 		= round($time_elapsed / 86400 );
+		  $weeks 		= round($time_elapsed / 604800);
+		  $months 		= round($time_elapsed / 2600640 );
+		  $years 		= round($time_elapsed / 31207680 );
+		  // Seconds
+		  if($seconds <= 60){
+			return "$seconds giây trước";
+		  }
+		  //Minutes
+		  else if($minutes <=60){
+			if($minutes==1){
+			  return "1 phút trước";
+			}
+			else{
+			  return "$minutes phút trước";
+			}
+		  }
+		  //Hours
+		  else if($hours <=24){
+			if($hours==1){
+			  return "1 giờ trước";
+			}else{
+			  return "$hours giờ trước";
+			}
+		  }
+		  //Days
+		  else if($days <= 7){
+			if($days==1){
+			  return "hôm qua";
+			}else{
+			  return "$days ngày trước";
+			}
+		  }
+		  //Weeks
+		  else if($weeks <= 4.3){
+			if($weeks==1){
+			  return "1 tuần trước";
+			}else{
+			  return "$weeks tuần trước";
+			}
+		  }
+		  //Months
+		  else if($months <=12){
+			if($months==1){
+			  return "1 tháng trước";
+			}else{
+			  return "$months tháng trước";
+			}
+		  }
+		  //Years
+		  else{
+			if($years==1){
+			  return "1 năm trước";
+			}else{
+			  return "$years năm trước";
+			}
+		  }
+	}
+	public function time_remaining($so_giay){
+
+		$conlai = $so_giay - time();
+		if($conlai < 0){
+			return 'Đã hết hạn';
+		}
+		$dt1 = new DateTime("@0");  
+		$dt2 = new DateTime("@$conlai");  
+		$ngay = $dt1->diff($dt2)->format('%a');
+		$gio = $dt1->diff($dt2)->format('%h');
+		$phut = $dt1->diff($dt2)->format('%i');
+		$giay = $dt1->diff($dt2)->format('%s');
+		if($ngay == '0' AND $gio != '0'){
+			return "$gio giờ, $phut phút";
+		}elseif ($gio == '0' AND $phut != '0'AND $ngay == '0') {
+			if($phut == '1'){
+				return 'một phút';
+			}else{
+				return "$phut phút";
+			}
+			
+		}elseif ($phut == '0' AND $gio == '0' AND $ngay == '0') {
+
+			return "$giay giây";
+		}else{
+			if($gio == 0){
+				return "$ngay ngày";
+			}else{
+				return "$ngay ngày, $gio giờ";
+			}
+			
+		}
+		//return "$ngay ngày, $gio giờ";
+	}
 
 }
 

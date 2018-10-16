@@ -27,7 +27,7 @@
                                        
                                             <a type="button" href="/Dashboards/Apps/AutoPost/CreatPost" class="btn btn-success btn-sm btn-block"><i class="fa fa-plus" aria-hidden="true"></i> Tạo bài đăng</a>
 
-                                            <a type="button" class="btn btn-info btn-sm btn-block"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý bài đăng</a>
+                                            <a type="button" href="/Dashboards/Apps/AutoPost/ViewPost" class="btn btn-info btn-sm btn-block"><i class="fa fa-calendar" aria-hidden="true"></i> Quản lý bài đăng</a>
                                             
                                        
                                        
