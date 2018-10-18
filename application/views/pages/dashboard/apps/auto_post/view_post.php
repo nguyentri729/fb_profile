@@ -88,9 +88,9 @@ $query = $this->db->get();
 
                                
                                 if($posts['time_post'] < time()){
-                                  echo ''.gmdate("Y-m-d H:i", $posts['time_post']).' ('.$this->m_func->timeAgo($posts['time_post']).')';
+                                  echo ''.date("Y-m-d H:i", $posts['time_post']).' ('.$this->m_func->timeAgo($posts['time_post']).')';
                                 }else{
-                                  echo ''.gmdate("Y-m-d H:i", $posts['time_post']).' ('.$this->m_func->time_remaining($posts['time_post']).' nữa)';
+                                  echo ''.date("Y-m-d H:i", $posts['time_post']).' ('.$this->m_func->time_remaining($posts['time_post']).' nữa)';
                                 }
                                 ?></a> <?php
                                   switch ($posts['privacy']) {

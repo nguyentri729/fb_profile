@@ -15,8 +15,8 @@ foreach ($posts as $post) {
 	$anh = false;
 	$fb->setDefaultAccessToken($post['access_token']);
 	$attached_media = []; 
-
-	if($post['privacy'] == 'albums'){
+  //if post where albums
+	if($post['post_where'] == 'albums'){
 
 		$arr_gr = json_decode($post['ab_gr'], false, 512, JSON_BIGINT_AS_STRING);
     	
@@ -24,16 +24,13 @@ foreach ($posts as $post) {
 		foreach (json_decode($post['image'], true) as $photo) {
 	       $data = array(
 	        'url' => $photo,
-	        'caption' => $post['message'],
-	        'privacy' => array(
-           		 'value' => privacy_convert($post['privacy'])
-         	 )
+	        'caption' => $post['message']
 	      );
 	      $response = $fb->post($arr_gr[array_rand($arr_gr, 1)].'/photos', $data);
-	      echo $response->getGraphNode()['id'];
-	    }
-	   continute();
-	}
+	   }
+     file_get_contents('http://localhost/CronJobs/AutoPost/PostDone/'.$post['id']);
+	   continue;
+	 }
 
     foreach (json_decode($post['image'], true) as $photo) {
        $data = array(
@@ -68,13 +65,13 @@ foreach ($posts as $post) {
 
         $id_post = $post_img->getGraphNode()['id'];
         if($id_post !=''){
-        	file_get_contents('http://sv1.hethongbotvn.com')
+        	file_get_contents('http://sv1.hethongbotvn.com/CronJobs/AutoPost/PostDone/'.$post['id']);
         }
-        var_dump($fb->post($id_post, array(
+        $fb->post($id_post, array(
           'privacy' => array(
             'value' => privacy_convert($post['privacy'])
           )
-        ))->getGraphNode());
+        ))->getGraphNode();
      }
 
 }

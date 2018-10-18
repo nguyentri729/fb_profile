@@ -136,10 +136,10 @@ class CreatPost extends CI_Controller {
 
 		
 	}
-	private function convert_day_to_mktime($h, $d){
+	function convert_day_to_mktime($h, $d){
 		$h_arr = explode(':', $h);
 		$d_arr = explode('/', $d);
-		return mktime($h_arr[0],$h_arr[1],0,$d_arr[0],$d_arr[1],$d_arr[2]);
+		return mktime($h_arr[0], $h_arr[1],0, $d_arr[0], $d_arr[1], $d_arr[2]);
 	}
 
 

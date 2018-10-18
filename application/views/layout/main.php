@@ -63,9 +63,9 @@
                     </li>
 
                     <li>
-                        <a href="../index-2.html">
-                            <i class="material-icons">work_outline</i>
-                            <p>Liên hệ</p>
+                        <a href="/Dashboards/Pages/Info">
+                            <i class="material-icons">info</i>
+                            <p>Giới thiệu</p>
                         </a>
                     </li>
 
@@ -105,7 +105,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
+                                    <span class="notification">1</span>
                                     <p class="hidden-lg hidden-md">
                                         Thông báo
                                         <b class="caret"></b>
@@ -113,20 +113,9 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">Mike John responded to your email</a>
+                                        <a href="#">Đang trong thời gian thử nhiệm vì<br> vậy tất cả các dịch vụ đều miễn phí.</a>
                                     </li>
-                                    <li>
-                                        <a href="#">You have 5 new tasks</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Andrew</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another Notification</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Another One</a>
-                                    </li>
+                                    
                                 </ul>
                             </li>
                             <li>
@@ -136,13 +125,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="<?=base_url('Dashboards/Pages/Profile')?>">
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Cá nhân</p>
                                 </a>
                             </li>
                             <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="<?=base_url('Dashboards/Pages/Setting')?>">
                                     <i class="material-icons">settings</i>
                                     <p class="hidden-lg hidden-md">Cài đặt</p>
                                 </a>
